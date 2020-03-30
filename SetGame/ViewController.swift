@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     private enum AttributeType: Int, CaseIterable { case shape, shapeCount, shading, color}
     private var game = SetGame(withCardsHaving: AttributeType.allCases.count)
+    @IBOutlet private var cardButtons: [UIButton]!
     
     private enum Shape: Int { case triangle, circle, square }
     private enum Shading: Int { case filled, striped, outline }
@@ -47,7 +48,11 @@ class ViewController: UIViewController {
         return NSAttributedString(string: shapeString, attributes: attributes)
     }
     
-//    override func viewDidLoad() {
+    @IBAction func touchCard(_ sender: UIButton) {
+    }
+    @IBAction func dealThree() {
+    }
+    //    override func viewDidLoad() {
 //        super.viewDidLoad()
 //        // Do any additional setup after loading the view.
 //    }
