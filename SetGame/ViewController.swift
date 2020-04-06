@@ -96,6 +96,16 @@ class ViewController: UIViewController {
         }
     }
     
+    private func checkForSet() {
+        print("Checking for set...")
+        let selected = zip(cardButtons, dealtCards).filter({$0.0.isSelected && $0.1 != nil})
+        if selected.count == 3 {
+            if game.isSet(cards: selected.map { $0.1! }) {
+                print("Found a set!")
+            }
+        }
+    }
+    
     @IBAction func touchCard(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         
@@ -105,6 +115,8 @@ class ViewController: UIViewController {
         } else {
             sender.layer.borderWidth = 0
         }
+        
+        checkForSet()
     }
     
     @IBAction func dealThree(n: Int) {

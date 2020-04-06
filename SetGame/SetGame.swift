@@ -24,20 +24,8 @@ struct SetGame {
     }
     
     private func validSetForAttribute(at index: Int, for cards: [Card]) -> Bool {
-        let firstAttribute = cards.first!.attributes[index]
-        let allTheSame = { () -> Bool in cards.allSatisfy( { $0.attributes[index] == firstAttribute }) }
-        let allDifferent = { () -> Bool in
-            var prevAttribute = firstAttribute
-            for card in cards {
-                if card.attributes[index] == prevAttribute {
-                    return false
-                }
-                prevAttribute = card.attributes[index]
-            }
-            return true
-        }
-        
-        return allTheSame() || allDifferent()
+        let attrSet = Set(cards.map { $0.attributes[index] })
+        return 1 == attrSet.count || attrSet.count == cards.count
     }
     
     func isSet(cards: [Card]) -> Bool {
