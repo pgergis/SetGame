@@ -16,11 +16,20 @@ class ViewController: UIViewController {
     
     private var dealtCards = [Card?]() {
         didSet {
-            dealNextLabel.setTitle("Deal 3 (\(game.deck.count))", for: .normal)
-            if game.deck.count == 0  || dealtCards.allSatisfy( { $0 != nil }){
+            dealNextLabel.setTitle("Deal (\(game.deck.count))", for: .normal)
+            if game.deck.count == 0
+                || dealtCards.filter({ $0 == nil }).count == 0 {
                 dealNextLabel.isEnabled = false
+            } else {
+                dealNextLabel.isEnabled = true
             }
             displayDealtCards()
+        }
+    }
+    
+    private var selected: [Int] {
+        get {
+            return cardButtons.indices.filter { cardButtons[$0].isSelected }
         }
     }
     
@@ -66,26 +75,52 @@ class ViewController: UIViewController {
 
         var attributes = [NSAttributedString.Key:Any]()
         switch shading {
-            case .filled: attributes.updateValue(colorValue.withAlphaComponent(1.0), forKey: .strokeColor)
-                attributes.updateValue(-1.0, forKey: .strokeWidth)
-            case .outline: {
+            case .filled:
+                attributes.updateValue(colorValue, forKey: .foregroundColor)
+
+            case .outline:
                 attributes.updateValue(colorValue, forKey: .strokeColor)
-                attributes.updateValue(5.0, forKey: .strokeWidth)
-            }()
-            case .striped: attributes.updateValue(colorValue.withAlphaComponent(0.15), forKey: .foregroundColor)
+                attributes.updateValue(10.0, forKey: .strokeWidth)
+
+            case .striped:
+                attributes.updateValue(colorValue.withAlphaComponent(0.3), forKey: .foregroundColor)                
         }
         return NSAttributedString(string: shapeString, attributes: attributes)
     }
     
+    private func setFace(cardButton: UIButton, up: Bool) {
+        if up {
+            cardButton.isEnabled = true
+            cardButton.backgroundColor = UIColor.secondarySystemFill
+        } else {
+            cardButton.isEnabled = false
+            cardButton.isSelected = false
+            cardButton.backgroundColor = UIColor.systemBackground
+        }
+    }
+    
+    private func displaySelectionState(cardButton: UIButton) {
+        if cardButton.isSelected {
+            cardButton.layer.borderWidth = 3.0
+            cardButton.layer.borderColor = UIColor.systemBlue.cgColor
+        } else {
+            cardButton.layer.borderWidth = 0
+            cardButton.layer.borderColor = cardButton.backgroundColor?.cgColor ?? UIColor.systemBackground.cgColor
+        }
+    }
+    
     private func displayDealtCards() {
-        for (cardButton, optCard) in zip(cardButtons, dealtCards) {
-            if let card = optCard {
+        assert(dealtCards.count == cardButtons.count)
+        for i in dealtCards.indices {
+            let cardButton = cardButtons[i]
+            if let card = dealtCards[i] {
                 let cardString = getAttributedString(for: card)
                 cardButton.setAttributedTitle(cardString, for: .normal)
-                cardButton.isEnabled = true
+                setFace(cardButton: cardButton, up: true)
             } else {
-                cardButton.isEnabled = false
+                setFace(cardButton: cardButton, up: false)
             }
+            displaySelectionState(cardButton: cardButton)
         }
     }
     
@@ -96,27 +131,19 @@ class ViewController: UIViewController {
         }
     }
     
-    private func checkForSet() {
-        print("Checking for set...")
-        let selected = zip(cardButtons, dealtCards).filter({$0.0.isSelected && $0.1 != nil})
-        if selected.count == 3 {
-            if game.isSet(cards: selected.map { $0.1! }) {
-                print("Found a set!")
-            }
-        }
-    }
-    
     @IBAction func touchCard(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         
-        if sender.isSelected {
-            sender.layer.borderWidth = 3.0
-            sender.layer.borderColor = UIColor.systemBlue.cgColor
-        } else {
-            sender.layer.borderWidth = 0
+        if selected.count == 3 {
+            let selectedCards = selected.map { dealtCards[$0]! }
+            let removeSet = game.isSet(cards: selectedCards)
+            for i in selected {
+                dealtCards[i] = removeSet ? nil : dealtCards[i]
+                cardButtons[i].isSelected = false
+            }
         }
         
-        checkForSet()
+        displayDealtCards()
     }
     
     @IBAction func dealThree(n: Int) {
@@ -126,10 +153,10 @@ class ViewController: UIViewController {
     private func initializeNewGame() {
         dealtCards = Array(repeating: nil, count: cardButtons.count)
         for button in cardButtons {
-            button.setTitle(" ", for: .disabled)
+            button.layer.cornerRadius = 8.0
+            button.setAttributedTitle(NSAttributedString(string: " "), for: .disabled)
             button.titleLabel?.lineBreakMode = NSLineBreakMode.byCharWrapping
-            button.isEnabled = false
-            button.isSelected = false
+            setFace(cardButton: button, up: false)
         }
         dealNewCards(n: 12)
     }

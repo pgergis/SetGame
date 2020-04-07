@@ -270,7 +270,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bxy-ft-KO6">
                                 <rect key="frame" x="35" y="44" width="98" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Deal 3 (78)"/>
+                                <state key="normal" title="Deal (78)"/>
                                 <connections>
                                     <action selector="dealThreeWithN:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GVs-4z-PSC"/>
                                 </connections>

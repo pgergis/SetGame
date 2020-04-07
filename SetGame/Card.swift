@@ -13,6 +13,7 @@ enum Attribute: Int, CaseIterable {
     case first, second, third
 }
 
-struct Card {
+struct Card: Equatable {
+    let id = UUID()
     let attributes: [Attribute]
 }
