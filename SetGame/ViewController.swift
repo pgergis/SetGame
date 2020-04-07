@@ -10,18 +10,31 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet private var cardButtons: [UIButton]!
-    @IBOutlet weak var dealNextLabel: UIButton!
+    @IBOutlet weak private var dealNextButton: UIButton!
+    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var setsFoundLabel: UILabel!
     
     private var game = SetGame(numCardAttributes: AttributeType.allCases.count)
     
+    private var score = 0 {
+        didSet {
+            scoreLabel.text = "\(score)"
+        }
+    }
+    private var setsFound = 0 {
+        didSet {
+            setsFoundLabel.text = "\(setsFound)"
+        }
+    }
+    
     private var dealtCards = [Card?]() {
         didSet {
-            dealNextLabel.setTitle("Deal (\(game.deck.count))", for: .normal)
+            dealNextButton.setTitle("Deal (🥞\(game.deck.count))", for: .normal)
             if game.deck.count == 0
                 || dealtCards.filter({ $0 == nil }).count == 0 {
-                dealNextLabel.isEnabled = false
+                dealNextButton.isEnabled = false
             } else {
-                dealNextLabel.isEnabled = true
+                dealNextButton.isEnabled = true
             }
             displayDealtCards()
         }
@@ -131,14 +144,16 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func touchCard(_ sender: UIButton) {
+    @IBAction private func touchCard(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         
         if selected.count == 3 {
             let selectedCards = selected.map { dealtCards[$0]! }
-            let removeSet = game.isSet(cards: selectedCards)
+            let foundSet = game.isSet(cards: selectedCards)
+            setsFound += foundSet ? 1 : -1
+            score += foundSet ? 3 : 0
             for i in selected {
-                dealtCards[i] = removeSet ? nil : dealtCards[i]
+                dealtCards[i] = foundSet ? nil : dealtCards[i]
                 cardButtons[i].isSelected = false
             }
         }
@@ -146,12 +161,15 @@ class ViewController: UIViewController {
         displayDealtCards()
     }
     
-    @IBAction func dealThree(n: Int) {
+    @IBAction private func dealThree(n: Int) {
         dealNewCards(n: 3)
     }
     
-    private func initializeNewGame() {
+    @IBAction private func initializeNewGame() {
+        game = SetGame(numCardAttributes: AttributeType.allCases.count)
         dealtCards = Array(repeating: nil, count: cardButtons.count)
+        score = 0
+        setsFound = 0
         for button in cardButtons {
             button.layer.cornerRadius = 8.0
             button.setAttributedTitle(NSAttributedString(string: " "), for: .disabled)

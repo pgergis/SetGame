@@ -267,29 +267,77 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bxy-ft-KO6">
-                                <rect key="frame" x="35" y="44" width="98" height="36"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k2k-be-I8w">
+                                <rect key="frame" x="314" y="44" width="50" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Deal (78)"/>
+                                <state key="normal" title="Reset"/>
+                                <connections>
+                                    <action selector="initializeNewGame" destination="BYZ-38-t0r" eventType="touchUpInside" id="rfv-cR-qEe"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bxy-ft-KO6">
+                                <rect key="frame" x="129.5" y="820" width="155" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <size key="titleShadowOffset" width="1" height="1"/>
+                                <state key="normal" title="Deal (🥞78)">
+                                    <color key="titleShadowColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="dealThreeWithN:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GVs-4z-PSC"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="score" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d3g-Ak-e1o">
+                                <rect key="frame" x="57" y="820" width="36" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MGI-yG-2Ju">
+                                <rect key="frame" x="69" y="832" width="12.5" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sets" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aga-tB-W4j">
+                                <rect key="frame" x="325.5" y="820" width="27.5" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u6w-gl-BO2">
+                                <rect key="frame" x="333" y="832" width="12.5" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="baJ-pH-2fK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="35" id="76c-47-cmW"/>
-                            <constraint firstItem="bxy-ft-KO6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="35" id="C2M-I7-Ank"/>
+                            <constraint firstItem="MGI-yG-2Ju" firstAttribute="bottom" secondItem="bxy-ft-KO6" secondAttribute="bottom" id="89K-wB-ZaJ"/>
+                            <constraint firstItem="u6w-gl-BO2" firstAttribute="centerX" secondItem="Aga-tB-W4j" secondAttribute="centerX" id="Ay6-3P-ccC"/>
+                            <constraint firstItem="k2k-be-I8w" firstAttribute="centerX" secondItem="oAH-cO-elh" secondAttribute="centerX" id="G1p-aO-whf"/>
+                            <constraint firstItem="bxy-ft-KO6" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="JHz-Tx-clz"/>
+                            <constraint firstItem="u6w-gl-BO2" firstAttribute="bottom" secondItem="bxy-ft-KO6" secondAttribute="bottom" id="Kzc-2L-x85"/>
+                            <constraint firstItem="Aga-tB-W4j" firstAttribute="top" secondItem="bxy-ft-KO6" secondAttribute="top" id="QOB-wI-kO4"/>
+                            <constraint firstItem="Aga-tB-W4j" firstAttribute="centerX" secondItem="9m2-yh-k6I" secondAttribute="centerX" id="Tat-O0-pDI"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="CaV-aO-YpD" secondAttribute="bottom" constant="50" id="Tuy-cQ-Dnx"/>
-                            <constraint firstItem="CaV-aO-YpD" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="cNW-nj-SvJ"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bxy-ft-KO6" secondAttribute="trailing" constant="281" id="i26-Lk-muZ"/>
-                            <constraint firstItem="CaV-aO-YpD" firstAttribute="top" secondItem="bxy-ft-KO6" secondAttribute="bottom" constant="14" id="mYZ-oz-rtG"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="CaV-aO-YpD" secondAttribute="trailing" constant="35" id="yJ7-al-oeL"/>
+                            <constraint firstItem="k2k-be-I8w" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="UlQ-Wg-NKv"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="bxy-ft-KO6" secondAttribute="bottom" constant="6" id="X4S-0U-JRl"/>
+                            <constraint firstItem="CaV-aO-YpD" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="Xqj-17-wpc"/>
+                            <constraint firstItem="bxy-ft-KO6" firstAttribute="top" secondItem="CaV-aO-YpD" secondAttribute="bottom" constant="8" symbolic="YES" id="eZ3-L4-AZS"/>
+                            <constraint firstItem="CaV-aO-YpD" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="gWa-xh-hZ4"/>
+                            <constraint firstItem="d3g-Ak-e1o" firstAttribute="centerX" secondItem="yoa-9c-Ih7" secondAttribute="centerX" id="mnW-c7-Fa0"/>
+                            <constraint firstItem="u6w-gl-BO2" firstAttribute="centerX" secondItem="Aga-tB-W4j" secondAttribute="centerX" id="obQ-ax-4sK"/>
+                            <constraint firstItem="MGI-yG-2Ju" firstAttribute="centerX" secondItem="d3g-Ak-e1o" secondAttribute="centerX" id="pq7-Kg-KVy"/>
+                            <constraint firstItem="d3g-Ak-e1o" firstAttribute="top" secondItem="bxy-ft-KO6" secondAttribute="top" id="vCK-w7-a0i"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="dealNextLabel" destination="bxy-ft-KO6" id="ucp-MR-XYJ"/>
+                        <outlet property="dealNextButton" destination="bxy-ft-KO6" id="ucp-MR-XYJ"/>
+                        <outlet property="scoreLabel" destination="MGI-yG-2Ju" id="C9B-QJ-qRt"/>
+                        <outlet property="setsFoundLabel" destination="u6w-gl-BO2" id="LNX-fv-W9J"/>
                         <outletCollection property="cardButtons" destination="Six-5F-TbQ" collectionClass="NSMutableArray" id="gPW-36-q17"/>
                         <outletCollection property="cardButtons" destination="rHj-2R-WV2" collectionClass="NSMutableArray" id="29K-IB-229"/>
                         <outletCollection property="cardButtons" destination="vIE-QY-wzW" collectionClass="NSMutableArray" id="6n3-QF-oN4"/>
