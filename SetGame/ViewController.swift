@@ -150,8 +150,8 @@ class ViewController: UIViewController {
         if selected.count == 3 {
             let selectedCards = selected.map { dealtCards[$0]! }
             let foundSet = game.isSet(cards: selectedCards)
-            setsFound += foundSet ? 1 : -2
-            score += foundSet ? 3 : 0
+            setsFound += foundSet ? 1 : 0
+            score += foundSet ? 3 : -2
             for i in selected {
                 dealtCards[i] = foundSet ? nil : dealtCards[i]
                 cardButtons[i].isSelected = false
