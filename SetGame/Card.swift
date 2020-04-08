@@ -13,7 +13,11 @@ enum Attribute: Int, CaseIterable {
     case first, second, third
 }
 
-struct Card: Equatable {
+struct Card: Equatable, Hashable {
     let id = UUID()
     let attributes: [Attribute]
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }

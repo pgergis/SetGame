@@ -29,7 +29,7 @@ class ViewController: UIViewController {
     
     private var dealtCards = [Card?]() {
         didSet {
-            dealNextButton.setTitle("Deal (🥞\(game.deck.count))", for: .normal)
+            dealNextButton.setTitle("Deal 🥞\(game.deck.count)", for: .normal)
             if game.deck.count == 0
                 || dealtCards.filter({ $0 == nil }).count == 0 {
                 dealNextButton.isEnabled = false
@@ -150,7 +150,7 @@ class ViewController: UIViewController {
         if selected.count == 3 {
             let selectedCards = selected.map { dealtCards[$0]! }
             let foundSet = game.isSet(cards: selectedCards)
-            setsFound += foundSet ? 1 : -1
+            setsFound += foundSet ? 1 : -2
             score += foundSet ? 3 : 0
             for i in selected {
                 dealtCards[i] = foundSet ? nil : dealtCards[i]
@@ -161,7 +161,18 @@ class ViewController: UIViewController {
         displayDealtCards()
     }
     
+    private func setInDealt() -> Bool {
+        return dealtCards
+            .filter({ $0 != nil })  // on the board
+            .map({ $0! })
+            .combinations
+            .filter({ $0.count == 3 })  // grouped in threes
+            .filter({ game.isSet(cards: $0) })  // valid set
+            .count > 0
+    }
+    
     @IBAction private func dealThree(n: Int) {
+        score += setInDealt() ? -1 : 0
         dealNewCards(n: 3)
     }
     
