@@ -54,14 +54,19 @@ class ViewController: UIViewController {
     
     private func getDisplayAttributes(from card: Card) -> (Shape, ShapeCount: Int, Shading, Color) {
         assert(card.attributes.count >= AttributeType.allCases.count)
-        
-        let attrs = AttributeType.allCases.map { card.attributes[$0.rawValue].rawValue}
-        
+                
         return (
-            Shape(rawValue: attrs[0])!,
-            attrs[1] + 1,
-            Shading(rawValue: attrs[2])!,
-            Color(rawValue: attrs[3])!
+            Shape(rawValue: card
+                .attributes[AttributeType.shape.rawValue]
+                .rawValue)!,
+            card.attributes[AttributeType.shapeCount.rawValue]
+                .rawValue + 1,  // indexed at 0, but count should be > 0
+            Shading(rawValue: card
+                .attributes[AttributeType.shading.rawValue]
+                .rawValue)!,
+            Color(rawValue: card
+                .attributes[AttributeType.color.rawValue]
+                .rawValue)!
         )
     }
     
@@ -137,7 +142,7 @@ class ViewController: UIViewController {
     
     private func dealNewCards(n: Int) {
         let newCards = game.dealCards(n: n)
-        for (newCard, slot) in zip(newCards, dealtCards.indices.filter( { dealtCards[$0] == nil })) {
+        for (newCard, slot) in zip(newCards, dealtCards.indices.filter({ dealtCards[$0] == nil })) {
             dealtCards[slot] = newCard
         }
     }
