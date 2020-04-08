@@ -161,18 +161,18 @@ class ViewController: UIViewController {
         displayDealtCards()
     }
     
-    private func setInDealt() -> Bool {
-        return dealtCards
+    private func setsInDealt() -> [[Card]] {
+        let setsInDealt = dealtCards
             .filter({ $0 != nil })  // on the board
             .map({ $0! })
             .combinations
             .filter({ $0.count == 3 })  // grouped in threes
             .filter({ game.isSet(cards: $0) })  // valid set
-            .count > 0
+        return setsInDealt
     }
     
     @IBAction private func dealThree(n: Int) {
-        score += setInDealt() ? -1 : 0
+        score -= setsInDealt().count
         dealNewCards(n: 3)
     }
     
