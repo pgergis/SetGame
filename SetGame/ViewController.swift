@@ -123,10 +123,8 @@ class ViewController: UIViewController {
     }
     
     private func displayDealtCards() {
-        assert(dealtCards.count == cardButtons.count)
-        for i in dealtCards.indices {
-            let cardButton = cardButtons[i]
-            if let card = dealtCards[i] {
+        for (cardButton, optCard) in zip(cardButtons, dealtCards) {
+            if let card = optCard {
                 let cardString = getAttributedString(for: card)
                 cardButton.setAttributedTitle(cardString, for: .normal)
                 setFace(cardButton: cardButton, up: true)
@@ -156,19 +154,19 @@ class ViewController: UIViewController {
                 dealtCards[i] = foundSet ? nil : dealtCards[i]
                 cardButtons[i].isSelected = false
             }
+        } else {
+            displayDealtCards()
         }
-        
-        displayDealtCards()
     }
     
-    private func setsInDealt() -> [[Card]] {
+    private func setsInDealt() -> Set<[Card]> {
         let setsInDealt = dealtCards
             .filter({ $0 != nil })  // on the board
             .map({ $0! })
             .combinations
             .filter({ $0.count == 3 })  // grouped in threes
             .filter({ game.isSet(cards: $0) })  // valid set
-        return setsInDealt
+        return Set(setsInDealt)
     }
     
     @IBAction private func dealThree(n: Int) {
